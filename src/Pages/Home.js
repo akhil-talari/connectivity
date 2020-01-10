@@ -62,7 +62,7 @@ function Home(props) {
             <IconButton
               size="small"
               color="inherit"
-              onClick={() => props.history.push('/home')}
+              onClick={() => props.history.push('/connectivity/home')}
             >
               <HomeIcon className={classes.icon} />
             </IconButton>
@@ -77,7 +77,7 @@ function Home(props) {
               edge="end"
               size="small"
               color="inherit"
-              onClick={() => props.history.push('/login')}
+              onClick={() => props.history.push('/connectivity/login')}
             >
               <AccountCircleIcon className={classes.icon} />
             </IconButton>

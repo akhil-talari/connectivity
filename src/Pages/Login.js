@@ -119,7 +119,7 @@ class Login extends Component {
               variant="contained"
               color="primary"
               style={{ marginLeft: '630px', marginTop: '30px' }}
-              onClick={() => this.props.history.push('/')}
+              onClick={() => this.props.history.push('/connectivity/')}
             >
               Login
             </Button>
