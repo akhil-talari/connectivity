@@ -7,8 +7,8 @@ import User from './User';
 const Pages = (props) => {
   return (
     <Switch>
-      <Route exact path="/connectivity/login" component={Login} />
-      <Route exact path="/connectivity/home" component={User} />
+      <Route path="/connectivity/login" component={Login} />
+      <Route path="/connectivity/home" component={User} />
       <Route exact path="/connectivity/" component={Home} />
     </Switch>
   );

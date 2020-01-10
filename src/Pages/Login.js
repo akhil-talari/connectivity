@@ -63,12 +63,13 @@ class Login extends Component {
     return (
       <Redirect
         to={{
-          pathname: '/'
+          pathname: '/connectivity/'
         }}
       />
     );
   };
   render() {
+    console.log('loc', this.props.location);
     const { classes } = this.props;
     return (
       <div>
