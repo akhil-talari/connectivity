@@ -520,7 +520,7 @@ class User extends Component {
                   marginTop: '-20px'
                 }}
               >
-                Are you ready to embrace the change for seamless Conectivité ?
+                Are you ready to embrace the change for seamless Conectivité
               </Typography>
             </div>
           )}
