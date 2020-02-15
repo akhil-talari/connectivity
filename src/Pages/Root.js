@@ -155,35 +155,31 @@ function Home(props) {
             </IconButton>
           </Tooltip>
         </Toolbar>
-        
       </AppBar>
       <div
-          className={classes.root}
+        className={classes.root}
+        style={{
+          marginTop: '80px',
+          marginLeft: '400px'
+        }}
+      >
+        <img
+          src={con}
+          alt="logo"
+          style={{ marginTop: '0px', marginLeft: '0px' }}
+        />
+        <Typography
+          variant="h5"
+          align="center"
+          color="white"
           style={{
-            marginTop: '80px',
-            marginLeft: '400px',
-            
-            
+            marginTop: '-20px',
+            marginLeft: '-280px'
           }}
         >
-        
-          <img
-            src={con}
-            alt="logo"
-            style={{ marginTop: '0px', marginLeft: '0px' }}
-          />
-          <Typography
-                variant="h5"
-                align="center"
-                color="white"
-                style={{
-                  marginTop: '-20px',
-                  marginLeft:'-280px'
-                }}
-              >
-                Are you ready to embrace the change for seamless Conectivité ?
-              </Typography>
-          </div>
+          Are you ready to embrace the change for seamless Conectivité
+        </Typography>
+      </div>
     </div>
   );
 }
