@@ -177,7 +177,7 @@ function Home(props) {
             marginLeft: '-280px'
           }}
         >
-          Are you ready to embrace the change for seamless Conectivité
+          Are you ready to embrace the change for seamless Conectivité ?
         </Typography>
       </div>
     </div>
