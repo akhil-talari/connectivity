@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Box from '@material-ui/core/Box';
 import logo from '../images/logo.PNG';
 import con from '../images/Conectivite.png';
@@ -17,16 +17,17 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { withStyles } from '@material-ui/core/styles';
 import reduxModule from '../redux-modules';
-import Drawer from '@material-ui/core/Drawer';
-import Divider from '@material-ui/core/Divider';
-import ListItem from '@material-ui/core/ListItem';
-import line from '../images/line.png';
-import ListItemText from '@material-ui/core/ListItemText';
-import List from '@material-ui/core/List';
 import ContactPhoneIcon from '@material-ui/icons/ContactPhone';
 import PeopleIcon from '@material-ui/icons/People';
-
-const drawerWidth = 240;
+import Grid from '@material-ui/core/Grid';
+import Mobile from '../images/MobilesWearables.png';
+import hand from '../images/Mobile Hand.png';
+import notebook from '../images/Notebooks.png';
+import connectedCars from '../images/ConnectedCars.png';
+import mobility from '../images/FlyingMobility.png';
+import custom from '../images/CustomSolutions.png';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 
 const useStyles = (theme) => ({
   root: {
@@ -55,18 +56,14 @@ const useStyles = (theme) => ({
   background: {
     //width: '100vw'
   },
-  drawer: {
-    width: drawerWidth,
-    flexShrink: 0
-  },
-  drawerPaper: {
-    width: drawerWidth,
-    backgroundColor: 'pink'
-  },
-  toolbarDrawer: theme.mixins.toolbar
+  content: {
+    // marginTop: '200px',
+    // fontSize: '20px',
+    // marginLeft: '100px'
+  }
 });
 
-function Home(props) {
+function AboutUs(props) {
   //const classes = useStyles();
   const { classes } = props;
 
@@ -75,22 +72,10 @@ function Home(props) {
       ? props.authenticationRevoked()
       : props.history.push('/login');
   };
-
   return (
     <div className="App">
       <AppBar position="static" style={{ backgroundColor: '#f06292' }}>
         <Toolbar className={classes.toolbar}>
-          {props.isAuthenticated && props.isAuthenticated.status && (
-            <IconButton
-              edge="start"
-              className={classes.menuButton}
-              color="inherit"
-              aria-label="open drawer"
-              onClick={props.onClose}
-            >
-              <MenuIcon />
-            </IconButton>
-          )}
           <Typography
             variant="h5"
             className={classes.title}
@@ -155,9 +140,99 @@ function Home(props) {
             </IconButton>
           </Tooltip>
         </Toolbar>
-        
       </AppBar>
-      
+      <div>
+        <Typography
+          align="center"
+          color="white"
+          className={classes.content}
+          style={{
+            marginTop: '50px',
+            paddingLeft: '100px',
+            paddingRight: '90px'
+          }}
+          variant="h3"
+        >
+          CONTACT US
+          </Typography>
+          <Grid container spacing={1} style={{marginTop: 30, marginLeft: 530}}>
+    <Grid item lg={12}>
+    <TextField
+                id="input-with-icon-grid"
+                label="Name"
+                type="text"
+                name="name"
+                variant="outlined"
+                
+                className={classes.textField}
+                style={{ marginTop: '10px' }}
+                
+              />
+              </Grid>
+              <Grid item lg={12}>
+            <TextField
+                id="input-with-icon-grid"
+                label="Email ID"
+                type="email"
+                name="email"
+                variant="outlined"
+                
+                className={classes.textField}
+                style={{ marginTop: '10px' }}
+                
+              />
+              </Grid>
+              <Grid item lg={12}>
+            <TextField
+                id="input-with-icon-grid"
+                label="Contact Number"
+                type="text"
+                name="contactnumber"
+                variant="outlined"
+                
+                className={classes.textField}
+                style={{ marginTop: '10px' }}
+                
+              />
+              </Grid>
+              <Grid item lg={12}>
+            <TextField
+                id="input-with-icon-grid"
+                label="Country"
+                type="text"
+                name="country"
+                variant="outlined"
+                
+                className={classes.textField}
+                style={{ marginTop: '10px' }}
+                
+              />
+              </Grid>
+              <Grid item lg={12}>
+            <TextField
+                id="input-with-icon-grid"
+                label="Message"
+                type="text"
+                multiline
+                name="message"
+                variant="outlined"
+                className={classes.textField}
+                style={{ marginTop: '10px' }}
+                
+              />
+              </Grid>
+              <Grid item lg={12}>
+              <Button
+                    variant="contained"
+                    color="primary"
+                    
+                    style={{ marginLeft: 50, marginTop: 30 }}
+                  >
+                    Submit
+                  </Button>
+              </Grid>
+          </Grid>        
+      </div>
     </div>
   );
 }
@@ -167,30 +242,9 @@ const mapState = (state, props) => {
     state,
     props
   );
-  const isDrawerOpen = reduxModule.screenSignIn.selectors.isDrawerOpen(
-    state,
-    props
-  );
   return {
-    isAuthenticated,
-    isDrawerOpen
+    isAuthenticated
   };
 };
 
-const mapDispatch = (dispatch) => {
-  return {
-    onClose: () => {
-      dispatch({ type: reduxModule.screenSignIn.actions.SET_DRAWER_OPEN });
-    },
-    authenticationRevoked: (isAuthenticated) => {
-      dispatch({
-        type: reduxModule.screenSignIn.actions.AUTHENTICATION_REVOKED
-      });
-    }
-  };
-};
-
-export default compose(
-  connect(mapState, mapDispatch),
-  withStyles(useStyles)
-)(Home);
+export default compose(connect(mapState, null), withStyles(useStyles))(AboutUs);

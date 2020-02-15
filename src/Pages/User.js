@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import con from '../images/Conectivite.png';
 import logo from '../images/logo.jpg';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -34,6 +35,13 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import reduxModule from '../redux-modules';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { Redirect } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import chart from '../images/statistics.png';
 
 const drawerWidth = 240;
 const styles = (theme) => ({
@@ -67,7 +75,8 @@ const styles = (theme) => ({
     flexShrink: 0
   },
   drawerPaper: {
-    width: drawerWidth
+    width: drawerWidth,
+    backgroundColor: 'pink'
   },
   selectMenu: {
     [theme.breakpoints.down('lg')]: {
@@ -83,7 +92,6 @@ const styles = (theme) => ({
   formControl: {
     margin: theme.spacing(1),
     minWidth: 200,
-
     flexGrow: 1
   },
   paper: {
@@ -111,14 +119,15 @@ class User extends Component {
       serviceProvider: '',
       configurator: '',
       from: 'user',
-      open: false
+      open: false,
+      isDrawerOpen: true
     };
 
     this.serviceProviders = {
-      0: ['Airtel', 'Vodafone', 'BSNL', 'Idea', 'Jio'],
-      1: ['Verizon', 'AT&T', 'Lycamobile', 'TMobile', 'Cricket'],
-      2: ['Telstra'],
-      3: ['BT']
+      India: ['Airtel', 'Vodafone', 'BSNL', 'Idea', 'Jio'],
+      US: ['Verizon', 'AT&T', 'Lycamobile', 'TMobile', 'Cricket'],
+      AUS: ['Telstra'],
+      UK: ['BT']
     };
 
     this.handleChange = (event) => {
@@ -145,27 +154,55 @@ class User extends Component {
 
     this.handleClose = (event) => {
       this.setState({
-        ...this.state,
-        open: false
+        menuOption: 1,
+        country: '',
+        serviceProviderList: [],
+        serviceProvider: '',
+        configurator: '',
+        from: 'user',
+        open: false,
+        isDrawerOpen: true
       });
     };
+    this.notify = () => toast('You are logged in Successfully!');
   }
+
+  onClose = (event) => {
+    if (
+      event.type === 'keydown' &&
+      (event.key === 'Tab' || event.key === 'Shift')
+    ) {
+      return;
+    }
+    this.props.onClose();
+  };
+
   render() {
     const { classes } = this.props;
-    return (
-      <div className="App">
-        <Home {...this.props} from={this.state.from} />
+    return this.props.isAuthenticated && this.props.isAuthenticated.status ? (
+      <div
+        className="App"
+        style={{ backgroundColor: 'white', height: '1000px' }}
+      >
+        <Home {...this.props} menuOption={this.state.menuOption} />
         <Drawer
           className={classes.drawer}
-          variant="permanent"
           classes={{
             paper: classes.drawerPaper
           }}
+          variant="temporary"
           anchor="left"
+          open={this.props.isDrawerOpen}
+          onClose={this.onClose}
         >
-          <div className={classes.toolbarDrawer} />
+          <div
+            className={classes.toolbarDrawer}
+            style={{ backgroundColor: 'teal', opacity: 0.7 }}
+          >
+            <img src={con} alt="logo" style={{ height: '60px' }} />
+          </div>
           <Divider />
-          <List>
+          <List style={{ backgroundColor: 'pink' }}>
             {[
               'Dash Board',
               'Register a new user',
@@ -176,7 +213,13 @@ class User extends Component {
               <ListItem
                 button
                 key={text}
-                onClick={() => this.setState({ menuOption: index, from: '' })}
+                onClick={() => {
+                  this.setState({
+                    menuOption: index,
+                    from: ''
+                  });
+                  this.props.onClose();
+                }}
               >
                 <ListItemText primary={text} />
               </ListItem>
@@ -186,9 +229,15 @@ class User extends Component {
         </Drawer>
         <main className={classes.content}>
           {this.state.menuOption === 1 && (
-            <div className={classes.root}>
-              <Grid container spacing={1}>
-                <Grid item>
+            <div
+              className={classes.root}
+              style={{
+                marginTop: '80px',
+                marginLeft: '80px'
+              }}
+            >
+              <Grid container spacing={1} justify="center" alignItems="center">
+                <Grid item lg={12} md={12} xs={12}>
                   <FormControl className={classes.formControl}>
                     <InputLabel style={{ fontSize: '14px' }} htmlFor="country">
                       Select a Country
@@ -201,24 +250,22 @@ class User extends Component {
                       value={this.state.country}
                       onChange={this.handleChange}
                     >
-                      <MenuItem key="India" value="0">
+                      <MenuItem key="India" value="India">
                         India
                       </MenuItem>
-                      <MenuItem key="US" value="1">
+                      <MenuItem key="US" value="US">
                         US
                       </MenuItem>
-                      <MenuItem key="Aus" value="2">
+                      <MenuItem key="AUS" value="AUS">
                         Australia
                       </MenuItem>
-                      <MenuItem key="UK" value="3">
+                      <MenuItem key="UK" value="UK">
                         UK
                       </MenuItem>
                     </Select>
                   </FormControl>
                 </Grid>
-              </Grid>
-              <Grid container spacing={1}>
-                <Grid item>
+                <Grid item lg={12} md={12} xs={12}>
                   <FormControl className={classes.formControl}>
                     <InputLabel
                       id="demo-simple-select-filled-label"
@@ -242,9 +289,7 @@ class User extends Component {
                     </Select>
                   </FormControl>
                 </Grid>
-              </Grid>
-              <Grid container spacing={1}>
-                <Grid item>
+                <Grid item lg={12} md={12} xs={12}>
                   <FormControl className={classes.formControl}>
                     <InputLabel
                       id="demo-simple-select-filled-label"
@@ -272,28 +317,37 @@ class User extends Component {
                     </Select>
                   </FormControl>
                 </Grid>
-              </Grid>
-              <Grid container spacing={1}>
-                <Grid item>
+                <Grid item lg={12} md={12} xs={12}>
                   <Button
                     variant="contained"
                     color="primary"
-                    style={{ marginLeft: '50px', marginTop: '30px' }}
                     onClick={this.handleRegister}
+                    style={{ marginLeft: 50, marginTop: 30 }}
                   >
                     Register
                   </Button>
                 </Grid>
               </Grid>
+
               <Register
                 open={this.state.open}
                 handleClose={this.handleClose}
                 menuOption={this.state.configurator}
+                country={this.state.country}
+                registerUser={this.props.registerUser}
+                serviceProvider={this.state.serviceProvider}
+                configurator={this.state.configurator}
+                sendOTP={this.props.sendOTP}
               />
             </div>
           )}
           {this.state.menuOption === 2 && (
-            <div className={classes.root}>
+            <div
+              className={classes.root}
+              style={{
+                backgroundColor: 'white'
+              }}
+            >
               <Grid container spacing={1}>
                 <Grid item>
                   <TextField
@@ -451,10 +505,104 @@ class User extends Component {
               </Grid>
             </div>
           )}
+          {this.state.menuOption === -1 && (
+            <div>
+              <img
+                src={con}
+                alt="logo"
+                style={{ marginTop: '100px', marginLeft: '400px' }}
+              />
+              <Typography
+                variant="h5"
+                align="center"
+                color="white"
+                style={{
+                  marginTop: '-20px'
+                }}
+              >
+                Are you ready to embrace the change for seamless Conectivité ?
+              </Typography>
+            </div>
+          )}
+          {this.state.menuOption === 0 && (
+            <img
+              src={chart}
+              alt="chart"
+              style={{
+                marginLeft: '-40px',
+                marginTop: '100px',
+                height: '300px'
+              }}
+            />
+          )}
         </main>
       </div>
+    ) : (
+      <Redirect to="/home" />
     );
   }
 }
 
-export default withStyles(styles)(User);
+const mapState = (state, props) => {
+  const isAuthenticated = reduxModule.screenSignIn.selectors.isAuthenticated(
+    state,
+    props
+  );
+  const isDrawerOpen = reduxModule.screenSignIn.selectors.isDrawerOpen(
+    state,
+    props
+  );
+
+  const serviceRequestNumber = reduxModule.screenSignIn.selectors.getServiceRequestNumber(
+    state,
+    props
+  );
+  return {
+    isAuthenticated,
+    isDrawerOpen,
+    serviceRequestNumber
+  };
+};
+
+const mapDispatch = (dispatch) => {
+  return {
+    onClose: () => {
+      dispatch({ type: reduxModule.screenSignIn.actions.SET_DRAWER_OPEN });
+    },
+    registerUser: (
+      country,
+      serviceProvider,
+      configurator,
+      ssn,
+      number,
+      email,
+      type,
+      reason
+    ) => {
+      dispatch({
+        type: reduxModule.screenSignIn.actions.REGISTER_NEW_USER,
+        payload: {
+          country,
+          serviceProvider,
+          configuration: configurator,
+          ssn,
+          mobileNumber: number,
+          email,
+          subscriptionType: type,
+          reason
+        }
+      });
+    },
+    sendOTP: (email) => {
+      dispatch({
+        type: reduxModule.screenSignIn.actions.SEND_OTP,
+        email
+      });
+    }
+  };
+};
+
+export default compose(
+  connect(mapState, mapDispatch),
+  withStyles(styles)
+)(User);

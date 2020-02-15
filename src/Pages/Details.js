@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import FormControl from '@material-ui/core/FormControl';
-import { InputLabel } from '@material-ui/core';
+import { InputLabel, Typography } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import CameraAltIcon from '@material-ui/icons/CameraAlt';
 import IconButton from '@material-ui/core/IconButton';
@@ -35,10 +35,28 @@ const useStyles = makeStyles((theme) => ({
 
 export default function FormDialog(props) {
   const classes = useStyles();
+
+  // const mobileNumbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((index) =>
+  //   Math.floor(9000000000 + Math.random() * 100000000)
+  // );
+
+  const mobileNumbers = [
+    9963588187,
+    9959030960,
+    9908695216,
+    8884678547,
+    884678754,
+    8326066190,
+    9136663831,
+    9322069608,
+    2815197358,
+    8622418586
+  ];
+  console.log('props ', props);
   return (
     <div>
       <Grid container spacing={1}>
-        {props.menuOption === 'neweSIM' ? (
+        {props.menuOption === 'neweSIM' && (
           <div>
             <Grid item>
               <FormControl style={{ marginLeft: '180px' }}>
@@ -87,16 +105,57 @@ export default function FormDialog(props) {
               </Fab>
             </Grid>
           </div>
-        ) : null}
-        <Grid item>
-          <TextField
-            id="mobilenumber"
-            label="Mobile number"
-            type="text"
-            style={{ marginLeft: '180px' }}
-            margin="normal"
-          />
-        </Grid>
+        )}
+
+        {props.menuOption === 'neweSIM' ? (
+          <Grid item>
+            {' '}
+            <FormControl style={{ marginLeft: '180px', marginTop: '20px' }}>
+              <InputLabel
+                id="demo-simple-select-filled-label"
+                style={{ fontSize: '14px' }}
+              >
+                Mobile number
+              </InputLabel>
+              <Select
+                inputProps={{
+                  name: 'number',
+                  id: 'number'
+                }}
+                value={props.number}
+                onChange={(event) => props.setNumber(event.target.value)}
+                style={{ width: '180px' }}
+              >
+                {props.country === 'India' &&
+                  mobileNumbers.map((value, index) => (
+                    <MenuItem key={index} value={value}>
+                      {value}
+                    </MenuItem>
+                  ))}
+                {props.country === 'US' &&
+                  mobileNumbers.map((value, index) => (
+                    <MenuItem key={index} value={value}>
+                      {value}
+                    </MenuItem>
+                  ))}
+              </Select>
+            </FormControl>
+          </Grid>
+        ) : (
+          <Grid>
+            <TextField
+              id="mobilenumber"
+              label="Mobile number"
+              type="text"
+              style={{ marginLeft: '180px' }}
+              margin="normal"
+              value={props.number}
+              onChange={(event) => {
+                props.setNumber(event.target.value);
+              }}
+            />
+          </Grid>
+        )}
 
         <Grid item>
           <TextField
@@ -105,9 +164,18 @@ export default function FormDialog(props) {
             type="text"
             style={{ marginLeft: '180px' }}
             margin="normal"
+            value={props.ssn}
+            onChange={(event) => props.setSSN(event.target.value)}
           />
         </Grid>
-
+        <Grid item>
+          <Typography
+            style={{ marginLeft: 100, color: 'red', fontSize: '12px' }}
+            align="center"
+          >
+            {props.emailText}
+          </Typography>
+        </Grid>
         <Grid item>
           <TextField
             id="emailid"
@@ -115,9 +183,14 @@ export default function FormDialog(props) {
             type="email"
             style={{ marginLeft: '180px' }}
             margin="normal"
+            value={props.email}
+            onChange={(event) => {
+              props.setEmail(event.target.value);
+              props.setEmailText('');
+            }}
           />
         </Grid>
-        {props.menuOption === 'port' ? (
+        {props.menuOption === 'port' && (
           <Grid item>
             <FormControl style={{ marginLeft: '180px' }}>
               <InputLabel
@@ -147,7 +220,7 @@ export default function FormDialog(props) {
               </Select>
             </FormControl>
           </Grid>
-        ) : null}
+        )}
       </Grid>
     </div>
   );

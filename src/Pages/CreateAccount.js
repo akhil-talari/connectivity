@@ -19,8 +19,12 @@ import HomeIcon from '@material-ui/icons/Home';
 import Tooltip from '@material-ui/core/Tooltip';
 import InfoIcon from '@material-ui/icons/Info';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import PeopleIcon from '@material-ui/icons/People';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
+import FormControl from '@material-ui/core/FormControl';
+import { InputLabel } from '@material-ui/core';
 import ContactPhoneIcon from '@material-ui/icons/ContactPhone';
+import PeopleIcon from '@material-ui/icons/People';
 
 const styles = (theme) => ({
   root: {
@@ -58,25 +62,43 @@ const styles = (theme) => ({
   }
 });
 
-class Login extends Component {
+class CreateAccount extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       username: '',
-      password: ''
+      email: '',
+      loc: ''
+    };
+
+    this.handleChange = (event) => {
+      this.setState({
+        [event.target.name]: event.target.value
+      });
     };
   }
 
-  onLogin = () => {
-    this.props.onLogin();
+  onCreateUser = () => {
+    this.props.onCreateUser(
+      this.state.username,
+      this.state.email,
+      this.state.loc
+    );
   };
 
   render() {
     const { classes } = this.props;
-    if (this.props.isAuthenticated.status) {
-      return <Redirect to="/" />;
+    if (this.props.accountCreationMessage.status === 'Success') {
+      return (
+        <Redirect
+          to={{
+            pathname: '/login'
+          }}
+        />
+      );
     }
+
     return (
       <div>
         <AppBar position="static" style={{ backgroundColor: '#f06292' }}>
@@ -164,7 +186,7 @@ class Login extends Component {
         <div
           className={classes.root}
           style={{
-            marginTop: '20px',
+            marginTop: '10px',
             marginLeft: '400px',
             
             width: '500px',
@@ -182,11 +204,11 @@ class Login extends Component {
                 id="input-with-icon-grid"
                 label="User Name"
                 variant="outlined"
+                name="username"
                 className={classes.textField}
-                style={{ marginTop: '-30px' }}
-                onChange={(event) =>
-                  this.props.usernameChanged(event.target.value)
-                }
+                style={{ marginTop: '-10px' }}
+                value={this.state.username}
+                onChange={this.handleChange}
               />
             </Grid>
           </Grid>
@@ -195,72 +217,68 @@ class Login extends Component {
             <Grid item>
               <TextField
                 id="input-with-icon-grid"
-                label="Password"
-                type="password"
+                label="Email ID"
+                type="email"
+                name="email"
                 variant="outlined"
+                value={this.state.email}
                 className={classes.textField}
-                style={{ marginTop: '30px' }}
-                onChange={(event) =>
-                  this.props.passwordChanged(event.target.value)
-                }
+                style={{ marginTop: '10px' }}
+                onChange={this.handleChange}
               />
+            </Grid>
+            <Grid item>
+              <FormControl style={{ marginLeft: '150px', marginTop: '10px' }}>
+                <InputLabel
+                  id="demo-simple-select-filled-label"
+                  style={{ fontSize: '14px', marginLeft: '12px' }}
+                >
+                  Location
+                </InputLabel>
+                <Select
+                  inputProps={{
+                    name: 'loc',
+                    id: 'loc'
+                  }}
+                  style={{ width: '200px' }}
+                  variant="outlined"
+                  value={this.state.loc}
+                  onChange={this.handleChange}
+                >
+                  <MenuItem key="India" value="India">
+                    India
+                  </MenuItem>
+                  <MenuItem key="US" value="US">
+                    US
+                  </MenuItem>
+                  <MenuItem key="Australia" value="Australia">
+                    Australia
+                  </MenuItem>
+                </Select>
+              </FormControl>
             </Grid>
           </Grid>
           <Grid container spacing={1}>
             <Grid item lg={12}>
-              <Button
-                variant="contained"
-                color="primary"
-                style={{
-                  marginTop: '30px',
-                  marginLeft: '180px',
-                  width: '150px'
-                }}
-                onClick={this.onLogin}
-              >
-                Submit
-              </Button>
-            </Grid>
-            <Grid item lg={12}>
               <Typography
                 style={{
                   color: 'red',
-                  paddingLeft: '150px',
-                  paddingTop: '2px'
+                  paddingLeft: '150px'
                 }}
               >
-                {this.props.isAuthenticated.message}
+                {this.props.accountCreationMessage.message}
               </Typography>
             </Grid>
-            <Grid
-              item
-              lg={this.props.createAccountMessage.status === 'Success' ? 12 : 6}
-              style={{ marginTop: '35px' }}
-            >
-              <Typography
-                style={{
-                  color: 'blue',
-                  paddingLeft: '50px',
-                  paddingTop: '2px'
-                }}
+            <Grid item lg={12}>
+              <Button
+                variant="contained"
+                color="secondary"
+                style={{ marginTop: '30px', marginLeft: '180px' }}
+                onClick={this.onCreateUser}
               >
-                {this.props.createAccountMessage.status === 'Success'
-                  ? this.props.createAccountMessage.message
-                  : "Don't have an account yet?"}
-              </Typography>
+                Create User
+              </Button>
             </Grid>
-            {this.props.createAccountMessage.status !== 'Success' && (
-              <Grid item lg={6}>
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  style={{ marginTop: '30px' }}
-                  onClick={this.props.onCreateAccount}
-                >
-                  Create Account
-                </Button>
-              </Grid>
-            )}
           </Grid>
         </div>
       </div>
@@ -277,31 +295,29 @@ const mapState = (state, props) => {
     state,
     props
   );
-  const createAccountMessage = reduxModule.screenSignIn.selectors.getCreateAccountMessage(
+
+  const accountCreationMessage = reduxModule.screenSignIn.selectors.getAccountCreationMessage(
     state,
     props
   );
-
-  const loginText = reduxModule.screenSignIn.selectors.getLoginText(
-    state,
-    props
-  );
-
   return {
     isAuthenticated,
     isDrawerOpen,
-    createAccountMessage,
-    loginText
+    accountCreationMessage
   };
 };
 
 const mapDispatch = (dispatch) => {
   return {
-    onLogin: () => {
-      dispatch({ type: reduxModule.screenSignIn.actions.AUTHENTICATE_USER });
-    },
-    onCreateAccount: () => {
-      dispatch(push('/createAccount'));
+    onCreateUser: (username, email, location) => {
+      dispatch({
+        type: reduxModule.screenSignIn.actions.CREATE_NEW_USER,
+        payload: {
+          userName: username,
+          emailAddr: email,
+          location: location
+        }
+      });
     },
     usernameChanged: (value) => {
       dispatch({
@@ -326,4 +342,4 @@ const mapDispatch = (dispatch) => {
 export default compose(
   connect(mapState, mapDispatch),
   withStyles(styles)
-)(Login);
+)(CreateAccount);

@@ -1,16 +1,34 @@
 import React from 'react';
-
+import Theme from './Theme';
 import { Route, Switch } from 'react-router-dom';
 import Login from './Login';
 import Home from './Home';
 import User from './User';
+import AboutUs from './AboutUs';
+import CreateAccount from './CreateAccount';
+import Usecases from './Usecases';
+import ContactUs from './ContactUs';
+import Root from './Root';
+
+
 const Pages = (props) => {
   return (
-    <Switch>
-      <Route path="/connectivity/login" component={Login} />
-      <Route path="/connectivity/home" component={User} />
-      <Route exact path="/connectivity/" component={Home} />
-    </Switch>
+    <Theme>
+      <Switch>
+        <Route path="/login" component={Login} />
+        <Route path="/home" component={Root} />
+        <Route path="/usecases" component={Usecases} />
+        <Route path="/contactus" component={ContactUs} />
+        <Route path="/aboutus" component={AboutUs} />
+        <Route path="/createAccount" component={CreateAccount} />
+        
+        <Route
+          exact
+          path="/"
+          render={(props) => <User {...props} menuOption={-1} />}
+        />
+      </Switch>
+    </Theme>
   );
 };
 
