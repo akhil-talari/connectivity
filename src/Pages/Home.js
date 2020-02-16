@@ -25,6 +25,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import List from '@material-ui/core/List';
 import ContactPhoneIcon from '@material-ui/icons/ContactPhone';
 import PeopleIcon from '@material-ui/icons/People';
+import Header from './Header';
 
 const drawerWidth = 240;
 
@@ -70,94 +71,14 @@ function Home(props) {
   //const classes = useStyles();
   const { classes } = props;
 
-  const handleLogin = () => {
-    props.isAuthenticated.status
-      ? props.authenticationRevoked()
-      : props.history.push('/login');
-  };
-
   return (
     <div className="App">
-      <AppBar position="static" style={{ backgroundColor: '#f06292' }}>
-        <Toolbar className={classes.toolbar}>
-          {props.isAuthenticated && props.isAuthenticated.status && (
-            <IconButton
-              edge="start"
-              className={classes.menuButton}
-              color="inherit"
-              aria-label="open drawer"
-              onClick={props.onClose}
-            >
-              <MenuIcon />
-            </IconButton>
-          )}
-          <Typography
-            variant="h5"
-            className={classes.title}
-            noWrap
-          ></Typography>
-
-          <Tooltip id="tooltip-home" title="Home">
-            <IconButton
-              size="small"
-              color="inherit"
-              onClick={() => props.history.push('/home')}
-            >
-              <HomeIcon className={classes.icon} />
-            </IconButton>
-          </Tooltip>
-
-          <Tooltip id="tooltip-info" title="About Us">
-            <IconButton
-              size="small"
-              color="inherit"
-              onClick={() => props.history.push('/aboutus')}
-            >
-              <InfoIcon className={classes.icon} />
-            </IconButton>
-          </Tooltip>
-
-          <Tooltip id="tooltip-info" title="Use Cases">
-            <IconButton
-              size="small"
-              color="inherit"
-              onClick={() => props.history.push('/usecases')}
-            >
-              <PeopleIcon className={classes.icon} />
-            </IconButton>
-          </Tooltip>
-
-          <Tooltip id="tooltip-info" title="Contact Us">
-            <IconButton
-              size="small"
-              color="inherit"
-              onClick={() => props.history.push('/contactus')}
-            >
-              <ContactPhoneIcon className={classes.icon} />
-            </IconButton>
-          </Tooltip>
-
-          <Tooltip
-            id="tooltip-login"
-            title={
-              props.isAuthenticated && props.isAuthenticated.status
-                ? 'Logout'
-                : 'Login'
-            }
-          >
-            <IconButton
-              edge="end"
-              size="small"
-              color="inherit"
-              onClick={handleLogin}
-            >
-              <AccountCircleIcon className={classes.icon} />
-            </IconButton>
-          </Tooltip>
-        </Toolbar>
-        
-      </AppBar>
-      
+      <Header
+        isAuthenticated={props.isAuthenticated}
+        onClose={props.onClose}
+        history={props.history}
+        authenticationRevoked={props.authenticationRevoked}
+      />
     </div>
   );
 }

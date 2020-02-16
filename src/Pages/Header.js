@@ -25,7 +25,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import List from '@material-ui/core/List';
 import ContactPhoneIcon from '@material-ui/icons/ContactPhone';
 import PeopleIcon from '@material-ui/icons/People';
-import Header from './Header';
 
 const drawerWidth = 240;
 
@@ -42,7 +41,7 @@ const useStyles = (theme) => ({
     color: theme.palette.common.white
   },
   toolbar: {
-    alignItems: 'flex-start'
+    //alignItems: 'flex-start'
   },
   title: {
     flexGrow: 1,
@@ -64,45 +63,92 @@ const useStyles = (theme) => ({
     width: drawerWidth,
     backgroundColor: 'pink'
   },
-  toolbarDrawer: theme.mixins.toolbar
+  toolbarDrawer: theme.mixins.toolbar,
+  buttons: {
+    padding: 12
+  }
 });
 
-function Home(props) {
+function Header(props) {
   //const classes = useStyles();
   const { classes } = props;
 
+  const handleLogin = () => {
+    props.isAuthenticated.status
+      ? props.authenticationRevoked()
+      : props.history.push('/login');
+  };
+
   return (
     <div className="App">
-      <Header
-        isAuthenticated={props.isAuthenticated}
-        onClose={props.onClose}
-        history={props.history}
-        authenticationRevoked={props.authenticationRevoked}
-      />
-      <div
-        className={classes.root}
-        style={{
-          marginTop: '80px',
-          marginLeft: '400px'
-        }}
-      >
-        <img
-          src={con}
-          alt="logo"
-          style={{ marginTop: '0px', marginLeft: '0px' }}
-        />
-        <Typography
-          variant="h5"
-          align="center"
-          color="white"
-          style={{
-            marginTop: '-20px',
-            marginLeft: '-280px'
-          }}
-        >
-          Are you ready to embrace the change for seamless Conectivité ?
-        </Typography>
-      </div>
+      <AppBar position="static" style={{ backgroundColor: '#f06292' }}>
+        <Toolbar className={classes.toolbar}>
+          {props.isAuthenticated && props.isAuthenticated.status && (
+            <IconButton
+              edge="start"
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="open drawer"
+              onClick={props.onClose}
+            >
+              <MenuIcon />
+            </IconButton>
+          )}
+          <Typography
+            variant="h5"
+            className={classes.title}
+            noWrap
+          ></Typography>
+
+          <IconButton
+            size="small"
+            color="inherit"
+            onClick={() => props.history.push('/home')}
+            className={classes.buttons}
+          >
+            HOME
+          </IconButton>
+
+          <IconButton
+            size="small"
+            color="inherit"
+            onClick={() => props.history.push('/aboutus')}
+            className={classes.buttons}
+          >
+            INFO
+          </IconButton>
+
+          <IconButton
+            size="small"
+            color="inherit"
+            onClick={() => props.history.push('/usecases')}
+            className={classes.buttons}
+          >
+            USECASES
+          </IconButton>
+
+          <IconButton
+            size="small"
+            color="inherit"
+            onClick={() => props.history.push('/contactus')}
+            className={classes.buttons}
+          >
+            CONTACT US
+          </IconButton>
+
+          <IconButton
+            edge="end"
+            size="small"
+            color="inherit"
+            onClick={handleLogin}
+            className={classes.buttons}
+          >
+            {props.isAuthenticated && props.isAuthenticated.status
+              ? 'LOGOUT'
+              : 'LOGIN'}
+          </IconButton>
+        </Toolbar>
+      </AppBar>
     </div>
   );
 }
@@ -138,4 +184,4 @@ const mapDispatch = (dispatch) => {
 export default compose(
   connect(mapState, mapDispatch),
   withStyles(useStyles)
-)(Home);
+)(Header);

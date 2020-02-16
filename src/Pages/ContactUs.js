@@ -28,6 +28,7 @@ import mobility from '../images/FlyingMobility.png';
 import custom from '../images/CustomSolutions.png';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import Header from './Header';
 
 const useStyles = (theme) => ({
   root: {
@@ -74,73 +75,12 @@ function AboutUs(props) {
   };
   return (
     <div className="App">
-      <AppBar position="static" style={{ backgroundColor: '#f06292' }}>
-        <Toolbar className={classes.toolbar}>
-          <Typography
-            variant="h5"
-            className={classes.title}
-            noWrap
-          ></Typography>
-
-          <Tooltip id="tooltip-home" title="Home">
-            <IconButton
-              size="small"
-              color="inherit"
-              onClick={() => props.history.push('/home')}
-            >
-              <HomeIcon className={classes.icon} />
-            </IconButton>
-          </Tooltip>
-
-          <Tooltip id="tooltip-info" title="About Us">
-            <IconButton
-              size="small"
-              color="inherit"
-              onClick={() => props.history.push('/aboutus')}
-            >
-              <InfoIcon className={classes.icon} />
-            </IconButton>
-          </Tooltip>
-
-          <Tooltip id="tooltip-info" title="Use Cases">
-            <IconButton
-              size="small"
-              color="inherit"
-              onClick={() => props.history.push('/usecases')}
-            >
-              <PeopleIcon className={classes.icon} />
-            </IconButton>
-          </Tooltip>
-
-          <Tooltip id="tooltip-info" title="Contact Us">
-            <IconButton
-              size="small"
-              color="inherit"
-              onClick={() => props.history.push('/contactus')}
-            >
-              <ContactPhoneIcon className={classes.icon} />
-            </IconButton>
-          </Tooltip>
-
-          <Tooltip
-            id="tooltip-login"
-            title={
-              props.isAuthenticated && props.isAuthenticated.status
-                ? 'Logout'
-                : 'Login'
-            }
-          >
-            <IconButton
-              edge="end"
-              size="small"
-              color="inherit"
-              onClick={handleLogin}
-            >
-              <AccountCircleIcon className={classes.icon} />
-            </IconButton>
-          </Tooltip>
-        </Toolbar>
-      </AppBar>
+      <Header
+        isAuthenticated={props.isAuthenticated}
+        onClose={props.onClose}
+        history={props.history}
+        authenticationRevoked={props.authenticationRevoked}
+      />
       <div>
         <Typography
           align="center"
@@ -154,84 +94,74 @@ function AboutUs(props) {
           variant="h3"
         >
           CONTACT US
-          </Typography>
-          <Grid container spacing={1} style={{marginTop: 30, marginLeft: 530}}>
-    <Grid item lg={12}>
-    <TextField
-                id="input-with-icon-grid"
-                label="Name"
-                type="text"
-                name="name"
-                variant="outlined"
-                
-                className={classes.textField}
-                style={{ marginTop: '10px' }}
-                
-              />
-              </Grid>
-              <Grid item lg={12}>
+        </Typography>
+        <Grid container spacing={1} style={{ marginTop: 30, marginLeft: 530 }}>
+          <Grid item lg={12}>
             <TextField
-                id="input-with-icon-grid"
-                label="Email ID"
-                type="email"
-                name="email"
-                variant="outlined"
-                
-                className={classes.textField}
-                style={{ marginTop: '10px' }}
-                
-              />
-              </Grid>
-              <Grid item lg={12}>
+              id="input-with-icon-grid"
+              label="Name"
+              type="text"
+              name="name"
+              variant="outlined"
+              className={classes.textField}
+              style={{ marginTop: '10px' }}
+            />
+          </Grid>
+          <Grid item lg={12}>
             <TextField
-                id="input-with-icon-grid"
-                label="Contact Number"
-                type="text"
-                name="contactnumber"
-                variant="outlined"
-                
-                className={classes.textField}
-                style={{ marginTop: '10px' }}
-                
-              />
-              </Grid>
-              <Grid item lg={12}>
+              id="input-with-icon-grid"
+              label="Email ID"
+              type="email"
+              name="email"
+              variant="outlined"
+              className={classes.textField}
+              style={{ marginTop: '10px' }}
+            />
+          </Grid>
+          <Grid item lg={12}>
             <TextField
-                id="input-with-icon-grid"
-                label="Country"
-                type="text"
-                name="country"
-                variant="outlined"
-                
-                className={classes.textField}
-                style={{ marginTop: '10px' }}
-                
-              />
-              </Grid>
-              <Grid item lg={12}>
+              id="input-with-icon-grid"
+              label="Contact Number"
+              type="text"
+              name="contactnumber"
+              variant="outlined"
+              className={classes.textField}
+              style={{ marginTop: '10px' }}
+            />
+          </Grid>
+          <Grid item lg={12}>
             <TextField
-                id="input-with-icon-grid"
-                label="Message"
-                type="text"
-                multiline
-                name="message"
-                variant="outlined"
-                className={classes.textField}
-                style={{ marginTop: '10px' }}
-                
-              />
-              </Grid>
-              <Grid item lg={12}>
-              <Button
-                    variant="contained"
-                    color="primary"
-                    
-                    style={{ marginLeft: 50, marginTop: 30 }}
-                  >
-                    Submit
-                  </Button>
-              </Grid>
-          </Grid>        
+              id="input-with-icon-grid"
+              label="Country"
+              type="text"
+              name="country"
+              variant="outlined"
+              className={classes.textField}
+              style={{ marginTop: '10px' }}
+            />
+          </Grid>
+          <Grid item lg={12}>
+            <TextField
+              id="input-with-icon-grid"
+              label="Message"
+              type="text"
+              multiline
+              name="message"
+              variant="outlined"
+              className={classes.textField}
+              style={{ marginTop: '10px' }}
+            />
+          </Grid>
+          <Grid item lg={12}>
+            <Button
+              variant="contained"
+              color="primary"
+              style={{ marginLeft: 50, marginTop: 30 }}
+            >
+              Submit
+            </Button>
+          </Grid>
+        </Grid>
       </div>
     </div>
   );

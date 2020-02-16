@@ -19,6 +19,7 @@ import { withStyles } from '@material-ui/core/styles';
 import reduxModule from '../redux-modules';
 import ContactPhoneIcon from '@material-ui/icons/ContactPhone';
 import PeopleIcon from '@material-ui/icons/People';
+import Header from './Header';
 
 const useStyles = (theme) => ({
   root: {
@@ -58,80 +59,14 @@ function AboutUs(props) {
   //const classes = useStyles();
   const { classes } = props;
 
-  const handleLogin = () => {
-    props.isAuthenticated.status
-      ? props.authenticationRevoked()
-      : props.history.push('/login');
-  };
   return (
     <div className="App">
-      <AppBar position="static" style={{ backgroundColor: '#f06292' }}>
-        <Toolbar className={classes.toolbar}>
-          <Typography
-            variant="h5"
-            className={classes.title}
-            noWrap
-          ></Typography>
-
-          <Tooltip id="tooltip-home" title="Home">
-            <IconButton
-              size="small"
-              color="inherit"
-              onClick={() => props.history.push('/home')}
-            >
-              <HomeIcon className={classes.icon} />
-            </IconButton>
-          </Tooltip>
-
-          <Tooltip id="tooltip-info" title="About Us">
-            <IconButton
-              size="small"
-              color="inherit"
-              onClick={() => props.history.push('/aboutus')}
-            >
-              <InfoIcon className={classes.icon} />
-            </IconButton>
-          </Tooltip>
-
-          <Tooltip id="tooltip-info" title="Use Cases">
-            <IconButton
-              size="small"
-              color="inherit"
-              onClick={() => props.history.push('/usecases')}
-            >
-              <PeopleIcon className={classes.icon} />
-            </IconButton>
-          </Tooltip>
-
-          <Tooltip id="tooltip-info" title="Contact Us">
-            <IconButton
-              size="small"
-              color="inherit"
-              onClick={() => this.props.history.push('/contactus')}
-            >
-              <ContactPhoneIcon className={classes.icon} />
-            </IconButton>
-          </Tooltip>
-
-          <Tooltip
-            id="tooltip-login"
-            title={
-              props.isAuthenticated && props.isAuthenticated.status
-                ? 'Logout'
-                : 'Login'
-            }
-          >
-            <IconButton
-              edge="end"
-              size="small"
-              color="inherit"
-              onClick={handleLogin}
-            >
-              <AccountCircleIcon className={classes.icon} />
-            </IconButton>
-          </Tooltip>
-        </Toolbar>
-      </AppBar>
+      <Header
+        isAuthenticated={props.isAuthenticated}
+        onClose={props.onClose}
+        history={props.history}
+        authenticationRevoked={props.authenticationRevoked}
+      />
       <div
         style={{
           backgroundColor: 'pink',
