@@ -42,6 +42,7 @@ import { Redirect } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import chart from '../images/statistics.png';
+import Header from './Header'
 
 const drawerWidth = 240;
 const styles = (theme) => ({
@@ -184,7 +185,12 @@ class User extends Component {
         className="App"
         style={{ backgroundColor: 'white', height: '1000px' }}
       >
-        <Home {...this.props} menuOption={this.state.menuOption} />
+        <Header
+        isAuthenticated={this.props.isAuthenticated}
+        onClose={this.props.onClose}
+        history={this.props.history}
+        authenticationRevoked={this.props.authenticationRevoked}
+      />
         <Drawer
           className={classes.drawer}
           classes={{
@@ -199,7 +205,7 @@ class User extends Component {
             className={classes.toolbarDrawer}
             style={{ backgroundColor: 'teal', opacity: 0.7 }}
           >
-            <img src={con} alt="logo" style={{ height: '60px' }} />
+            <img src={con} alt="logo" style={{ height: '60px', width:'250px' }} />
           </div>
           <Divider />
           <List style={{ backgroundColor: 'pink' }}>

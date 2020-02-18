@@ -109,7 +109,7 @@ function Header(props) {
             HOME
           </IconButton>
 
-          <IconButton
+          {/* <IconButton
             size="small"
             color="inherit"
             onClick={() => props.history.push('/aboutus')}
@@ -134,7 +134,7 @@ function Header(props) {
             className={classes.buttons}
           >
             CONTACT US
-          </IconButton>
+          </IconButton> */}
 
           <IconButton
             edge="end"

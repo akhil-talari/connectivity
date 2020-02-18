@@ -29,7 +29,8 @@ import Header from './Header';
 
 const styles = (theme) => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
+    justifyContent:'center'
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -59,7 +60,7 @@ const styles = (theme) => ({
     }
   },
   textField: {
-    marginLeft: '150px'
+    //marginLeft: '150px'
   }
 });
 
@@ -108,23 +109,17 @@ class CreateAccount extends Component {
           history={this.props.history}
           authenticationRevoked={this.props.authenticationRevoked}
         />
-        <div
-          className={classes.root}
-          style={{
-            marginTop: '10px',
-            marginLeft: '400px',
-
-            width: '500px',
-            height: '500px'
-          }}
-        >
+        <Grid container spacing ={1} style={{textAlign: '-webkit-center'}}>
+          <Grid item xl={12} lg={12} className={classes.root} style={{verticalAlign:'center', paddingTop: 50}}>
           <img
             src={con}
             alt="logo"
             style={{ marginTop: '0px', marginLeft: '0px' }}
           />
-          <Grid container spacing={1}>
-            <Grid item>
+          </Grid>
+          
+          
+            <Grid item xl={12} lg={12} style={{padding:18}}>
               <TextField
                 id="input-with-icon-grid"
                 label="User Name"
@@ -136,10 +131,10 @@ class CreateAccount extends Component {
                 onChange={this.handleChange}
               />
             </Grid>
-          </Grid>
+          
 
-          <Grid container spacing={1}>
-            <Grid item>
+          
+            <Grid item xl={12} lg={12} style={{padding:18}}>
               <TextField
                 id="input-with-icon-grid"
                 label="Email ID"
@@ -152,11 +147,11 @@ class CreateAccount extends Component {
                 onChange={this.handleChange}
               />
             </Grid>
-            <Grid item>
-              <FormControl style={{ marginLeft: '150px', marginTop: '10px' }}>
+            <Grid item xl={12} lg={12} style={{padding:18}}>
+              <FormControl variant="outlined">
                 <InputLabel
                   id="demo-simple-select-filled-label"
-                  style={{ fontSize: '14px', marginLeft: '12px' }}
+                  style={{ fontSize: '14px', textAlign:'center'}}
                 >
                   Location
                 </InputLabel>
@@ -165,8 +160,9 @@ class CreateAccount extends Component {
                     name: 'loc',
                     id: 'loc'
                   }}
+                  label="Location"
                   style={{ width: '200px' }}
-                  variant="outlined"
+                  
                   value={this.state.loc}
                   onChange={this.handleChange}
                 >
@@ -182,23 +178,23 @@ class CreateAccount extends Component {
                 </Select>
               </FormControl>
             </Grid>
-          </Grid>
-          <Grid container spacing={1}>
-            <Grid item lg={12}>
+          
+          
+            <Grid item lg={12} style={{padding:18}}>
               <Typography
                 style={{
                   color: 'red',
-                  paddingLeft: '150px'
+                 
                 }}
               >
                 {this.props.accountCreationMessage.message}
               </Typography>
             </Grid>
-            <Grid item lg={12}>
+            <Grid item lg={12} style={{padding:18}}>
               <Button
                 variant="contained"
                 color="secondary"
-                style={{ marginTop: '30px', marginLeft: '180px' }}
+                
                 onClick={this.onCreateUser}
               >
                 Create User
@@ -206,7 +202,7 @@ class CreateAccount extends Component {
             </Grid>
           </Grid>
         </div>
-      </div>
+     
     );
   }
 }

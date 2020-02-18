@@ -23,9 +23,11 @@ import PeopleIcon from '@material-ui/icons/People';
 import ContactPhoneIcon from '@material-ui/icons/ContactPhone';
 import Header from './Header';
 
+
 const styles = (theme) => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
+    justifyContent:'center'
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -55,7 +57,8 @@ const styles = (theme) => ({
     }
   },
   textField: {
-    marginLeft: '150px'
+    //marginLeft: '150px'
+    //padding: 18
   }
 });
 
@@ -86,59 +89,46 @@ class Login extends Component {
           history={this.props.history}
           authenticationRevoked={this.props.authenticationRevoked}
         />
-        <div
-          className={classes.root}
-          style={{
-            marginTop: '20px',
-            marginLeft: '400px',
-
-            width: '500px',
-            height: '500px'
-          }}
-        >
+        <Grid container spacing ={1} style={{textAlign: '-webkit-center'}}>
+          <Grid item xl={12} lg={12} className={classes.root} style={{verticalAlign:'center', paddingTop: 50}}>
           <img
             src={con}
             alt="logo"
             style={{ marginTop: '0px', marginLeft: '0px' }}
           />
-          <Grid container spacing={1}>
-            <Grid item>
+          </Grid>
+          <Grid item container spacing={1} >
+            <Grid item xl={12} lg={12} style={{padding:18}}>
               <TextField
                 id="input-with-icon-grid"
                 label="User Name"
                 variant="outlined"
                 className={classes.textField}
-                style={{ marginTop: '-30px' }}
+                
                 onChange={(event) =>
                   this.props.usernameChanged(event.target.value)
                 }
               />
             </Grid>
-          </Grid>
-
-          <Grid container spacing={1}>
-            <Grid item>
+            <Grid item xl={12} lg={12} style={{padding:18}}> 
               <TextField
                 id="input-with-icon-grid"
                 label="Password"
                 type="password"
                 variant="outlined"
                 className={classes.textField}
-                style={{ marginTop: '30px' }}
                 onChange={(event) =>
                   this.props.passwordChanged(event.target.value)
                 }
               />
             </Grid>
           </Grid>
-          <Grid container spacing={1}>
-            <Grid item lg={12}>
+            <Grid item lg={12} xl={12} style={{padding:18}}>
               <Button
                 variant="contained"
                 color="primary"
                 style={{
-                  marginTop: '30px',
-                  marginLeft: '180px',
+                  
                   width: '150px'
                 }}
                 onClick={this.onLogin}
@@ -146,7 +136,7 @@ class Login extends Component {
                 Submit
               </Button>
             </Grid>
-            <Grid item lg={12}>
+            <Grid item lg={12} xl={12}>
               <Typography
                 style={{
                   color: 'red',
@@ -159,35 +149,35 @@ class Login extends Component {
             </Grid>
             <Grid
               item
-              lg={this.props.createAccountMessage.status === 'Success' ? 12 : 6}
-              style={{ marginTop: '35px' }}
+              container
+              spacing={1} 
             >
+              <Grid item lg={this.props.createAccountMessage.status === 'Success' ? 12 : 6} style={this.props.createAccountMessage.status === 'Success' ? {textAlign:'-webkit-center', padding: 18} : {textAlign:'right', padding: 18}}>
               <Typography
                 style={{
                   color: 'blue',
-                  paddingLeft: '50px',
-                  paddingTop: '2px'
+                  
                 }}
               >
                 {this.props.createAccountMessage.status === 'Success'
                   ? this.props.createAccountMessage.message
                   : "Don't have an account yet?"}
               </Typography>
-            </Grid>
+              </Grid>
             {this.props.createAccountMessage.status !== 'Success' && (
-              <Grid item lg={6}>
+              <Grid item lg={6} style={{textAlign:'left', padding: 18}}>
                 <Button
                   variant="contained"
-                  color="secondary"
-                  style={{ marginTop: '30px' }}
+                  color="secondary"         
                   onClick={this.props.onCreateAccount}
                 >
                   Create Account
                 </Button>
               </Grid>
             )}
+          
           </Grid>
-        </div>
+        </Grid>
       </div>
     );
   }

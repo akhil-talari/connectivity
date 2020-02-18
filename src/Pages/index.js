@@ -8,7 +8,7 @@ import AboutUs from './AboutUs';
 import CreateAccount from './CreateAccount';
 import Usecases from './Usecases';
 import ContactUs from './ContactUs';
-import Root from './Root';
+import RootNew from './RootNew';
 
 
 const Pages = (props) => {
@@ -16,7 +16,7 @@ const Pages = (props) => {
     <Theme>
       <Switch>
         <Route path="/login" component={Login} />
-        <Route path="/home" component={Root} />
+        <Route path="/home" component={RootNew} />
         <Route path="/usecases" component={Usecases} />
         <Route path="/contactus" component={ContactUs} />
         <Route path="/aboutus" component={AboutUs} />
