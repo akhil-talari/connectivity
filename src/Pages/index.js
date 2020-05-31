@@ -17,7 +17,7 @@ const Pages = (props) => {
     <Theme>
       <Switch>
         <Route path="/login" component={Login} />
-        <Route path="/home" component={HomeNew} />
+        <Route path="/connectivity/home" component={HomeNew} />
         <Route path="/usecases" component={Usecases} />
         <Route path="/contactus" component={ContactUs} />
         <Route path="/aboutus" component={AboutUs} />
