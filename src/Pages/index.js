@@ -10,18 +10,19 @@ import Usecases from './Usecases';
 import ContactUs from './ContactUs';
 import RootNew from './RootNew';
 
+import HomeNew from './HomeNew';
 
 const Pages = (props) => {
   return (
     <Theme>
       <Switch>
         <Route path="/login" component={Login} />
-        <Route path="/home" component={RootNew} />
+        <Route path="/home" component={HomeNew} />
         <Route path="/usecases" component={Usecases} />
         <Route path="/contactus" component={ContactUs} />
         <Route path="/aboutus" component={AboutUs} />
         <Route path="/createAccount" component={CreateAccount} />
-        
+
         <Route
           exact
           path="/"
