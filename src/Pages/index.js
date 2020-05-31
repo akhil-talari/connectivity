@@ -22,12 +22,7 @@ const Pages = (props) => {
         <Route path="/contactus" component={ContactUs} />
         <Route path="/aboutus" component={AboutUs} />
         <Route path="/createAccount" component={CreateAccount} />
-
-        <Route
-          exact
-          path="/"
-          render={(props) => <User {...props} menuOption={-1} />}
-        />
+        <Route exact path="/" component={HomeNew} />} />
       </Switch>
     </Theme>
   );
