@@ -10,7 +10,7 @@ import Usecases from './Usecases';
 import ContactUs from './ContactUs';
 import RootNew from './RootNew';
 
-import HomeNew from './connectivity/HomeNew';
+import HomeNew from './HomeNew';
 
 const Pages = (props) => {
   return (
