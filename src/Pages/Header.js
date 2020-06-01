@@ -74,9 +74,12 @@ function Header(props) {
   const { classes } = props;
 
   const handleLogin = () => {
-    props.isAuthenticated.status
-      ? props.authenticationRevoked()
-      : props.history.push('/');
+    props.history.push('/');
+  };
+
+  const handleLogout = () => {
+    props.authenticationRevoked();
+    props.history.push('/');
   };
 
   return (
@@ -136,17 +139,28 @@ function Header(props) {
             CONTACT US
           </IconButton> */}
 
-          <IconButton
-            edge="end"
-            size="small"
-            color="inherit"
-            onClick={handleLogin}
-            className={classes.buttons}
-          >
-            {props.isAuthenticated && props.isAuthenticated.status
-              ? 'LOGOUT'
-              : 'LOGIN'}
-          </IconButton>
+          {props.isAuthenticated && props.isAuthenticated.status && (
+            <IconButton
+              edge="end"
+              size="small"
+              color="inherit"
+              onClick={handleLogout}
+              className={classes.buttons}
+            >
+              LOGOUT
+            </IconButton>
+          )}
+          {props.isAuthenticated && !props.isAuthenticated.status && (
+            <IconButton
+              edge="end"
+              size="small"
+              color="inherit"
+              onClick={handleLogin}
+              className={classes.buttons}
+            >
+              LOGIN
+            </IconButton>
+          )}
         </Toolbar>
       </AppBar>
     </div>

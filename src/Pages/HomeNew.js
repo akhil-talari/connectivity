@@ -733,7 +733,12 @@ function HomeNew(props) {
         >
           <Typography
             variant="h6"
-            style={{ color: 'steelblue', textAlign: 'left', marginLeft: 12 }}
+            style={{
+              color: 'steelblue',
+              textAlign: 'left',
+              marginLeft: 12,
+              fontWeight: 800,
+            }}
           >
             Conectivite for World
           </Typography>
@@ -780,7 +785,12 @@ function HomeNew(props) {
         >
           <Typography
             variant="h6"
-            style={{ color: 'steelblue', textAlign: 'left', marginLeft: -10 }}
+            style={{
+              color: 'steelblue',
+              textAlign: 'left',
+              marginLeft: -10,
+              fontWeight: 800,
+            }}
           >
             GCCP by Connectivite - One Global Platform
           </Typography>
