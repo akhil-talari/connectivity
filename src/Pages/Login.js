@@ -23,43 +23,42 @@ import PeopleIcon from '@material-ui/icons/People';
 import ContactPhoneIcon from '@material-ui/icons/ContactPhone';
 import Header from './Header';
 
-
 const styles = (theme) => ({
   root: {
     flexGrow: 1,
-    justifyContent:'center'
+    justifyContent: 'center',
   },
   menuButton: {
     marginRight: theme.spacing(2),
-    marginTop: theme.spacing(1)
+    marginTop: theme.spacing(1),
   },
   flex: {
     flex: 1,
-    color: theme.palette.common.white
+    color: theme.palette.common.white,
   },
   toolbar: {
-    alignItems: 'flex-start'
+    alignItems: 'flex-start',
   },
   title: {
     flexGrow: 1,
-    alignSelf: 'flex-end'
+    alignSelf: 'flex-end',
   },
   icon: {
     lineHeight: '3.0',
     marginRight: theme.spacing(1),
-    marginTop: theme.spacing(2)
+    marginTop: theme.spacing(2),
   },
   rootText: {
     '& > *': {
       marginLeft: theme.spacing(1),
       width: 200,
-      align: 'center'
-    }
+      align: 'center',
+    },
   },
   textField: {
     //marginLeft: '150px'
     //padding: 18
-  }
+  },
 });
 
 class Login extends Component {
@@ -68,7 +67,7 @@ class Login extends Component {
 
     this.state = {
       username: '',
-      password: ''
+      password: '',
     };
   }
 
@@ -79,7 +78,7 @@ class Login extends Component {
   render() {
     const { classes } = this.props;
     if (this.props.isAuthenticated.status) {
-      return <Redirect to="/" />;
+      return <Redirect to="/home" />;
     }
     return (
       <div>
@@ -89,28 +88,33 @@ class Login extends Component {
           history={this.props.history}
           authenticationRevoked={this.props.authenticationRevoked}
         />
-        <Grid container spacing ={1} style={{textAlign: '-webkit-center'}}>
-          <Grid item xl={12} lg={12} className={classes.root} style={{verticalAlign:'center', paddingTop: 50}}>
-          <img
-            src={con}
-            alt="logo"
-            style={{ marginTop: '0px', marginLeft: '0px' }}
-          />
+        <Grid container spacing={1} style={{ textAlign: '-webkit-center' }}>
+          <Grid
+            item
+            xl={12}
+            lg={12}
+            className={classes.root}
+            style={{ verticalAlign: 'center', paddingTop: 50 }}
+          >
+            <img
+              src={con}
+              alt="logo"
+              style={{ marginTop: '0px', marginLeft: '0px' }}
+            />
           </Grid>
-          <Grid item container spacing={1} >
-            <Grid item xl={12} lg={12} style={{padding:18}}>
+          <Grid item container spacing={1}>
+            <Grid item xl={12} lg={12} style={{ padding: 18 }}>
               <TextField
                 id="input-with-icon-grid"
                 label="User Name"
                 variant="outlined"
                 className={classes.textField}
-                
                 onChange={(event) =>
                   this.props.usernameChanged(event.target.value)
                 }
               />
             </Grid>
-            <Grid item xl={12} lg={12} style={{padding:18}}> 
+            <Grid item xl={12} lg={12} style={{ padding: 18 }}>
               <TextField
                 id="input-with-icon-grid"
                 label="Password"
@@ -123,59 +127,60 @@ class Login extends Component {
               />
             </Grid>
           </Grid>
-            <Grid item lg={12} xl={12} style={{padding:18}}>
-              <Button
-                variant="contained"
-                color="primary"
-                style={{
-                  
-                  width: '150px'
-                }}
-                onClick={this.onLogin}
-              >
-                Submit
-              </Button>
-            </Grid>
-            <Grid item lg={12} xl={12}>
-              <Typography
-                style={{
-                  color: 'red',
-                  paddingLeft: '150px',
-                  paddingTop: '2px'
-                }}
-              >
-                {this.props.isAuthenticated.message}
-              </Typography>
-            </Grid>
+          <Grid item lg={12} xl={12} style={{ padding: 18 }}>
+            <Button
+              variant="contained"
+              color="primary"
+              style={{
+                width: '150px',
+              }}
+              onClick={this.onLogin}
+            >
+              Submit
+            </Button>
+          </Grid>
+          <Grid item lg={12} xl={12}>
+            <Typography
+              style={{
+                color: 'red',
+                paddingLeft: '150px',
+                paddingTop: '2px',
+              }}
+            >
+              {this.props.isAuthenticated.message}
+            </Typography>
+          </Grid>
+          <Grid item container spacing={1}>
             <Grid
               item
-              container
-              spacing={1} 
+              lg={this.props.createAccountMessage.status === 'Success' ? 12 : 6}
+              style={
+                this.props.createAccountMessage.status === 'Success'
+                  ? { textAlign: '-webkit-center', padding: 18 }
+                  : { textAlign: 'right', padding: 18 }
+              }
             >
-              <Grid item lg={this.props.createAccountMessage.status === 'Success' ? 12 : 6} style={this.props.createAccountMessage.status === 'Success' ? {textAlign:'-webkit-center', padding: 18} : {textAlign:'right', padding: 18}}>
               <Typography
                 style={{
                   color: 'blue',
-                  
                 }}
               >
                 {this.props.createAccountMessage.status === 'Success'
                   ? this.props.createAccountMessage.message
                   : "Don't have an account yet?"}
               </Typography>
-              </Grid>
+            </Grid>
             {this.props.createAccountMessage.status !== 'Success' && (
-              <Grid item lg={6} style={{textAlign:'left', padding: 18}}>
+              <Grid item lg={6} style={{ textAlign: 'left', padding: 18 }}>
                 <Button
                   variant="contained"
-                  color="secondary"         
+                  color="secondary"
                   onClick={this.props.onCreateAccount}
                 >
                   Create Account
                 </Button>
               </Grid>
             )}
-          
           </Grid>
         </Grid>
       </div>
@@ -206,7 +211,7 @@ const mapState = (state, props) => {
     isAuthenticated,
     isDrawerOpen,
     createAccountMessage,
-    loginText
+    loginText,
   };
 };
 
@@ -221,20 +226,20 @@ const mapDispatch = (dispatch) => {
     usernameChanged: (value) => {
       dispatch({
         type: reduxModule.screenSignIn.actions.USERNAME_CHANGED,
-        value
+        value,
       });
     },
     passwordChanged: (value) => {
       dispatch({
         type: reduxModule.screenSignIn.actions.PASSWORD_CHANGED,
-        value
+        value,
       });
     },
     authenticationRevoked: (isAuthenticated) => {
       dispatch({
-        type: reduxModule.screenSignIn.actions.AUTHENTICATION_REVOKED
+        type: reduxModule.screenSignIn.actions.AUTHENTICATION_REVOKED,
       });
-    }
+    },
   };
 };
 

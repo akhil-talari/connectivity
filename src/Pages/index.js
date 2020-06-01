@@ -17,17 +17,16 @@ const Pages = (props) => {
     <Theme>
       <Switch>
         <Route path="/login" component={Login} />
+        <Route
+          exact
+          path="/home"
+          render={(props) => <User {...props} menuOption={-1} />}
+        />
         <Route path={process.env.PUBLIC_URL + '/'} component={HomeNew} />
         <Route path="/usecases" component={Usecases} />
         <Route path="/contactus" component={ContactUs} />
         <Route path="/aboutus" component={AboutUs} />
         <Route path="/createAccount" component={CreateAccount} />
-
-        <Route
-          exact
-          path="/"
-          render={(props) => <User {...props} menuOption={-1} />}
-        />
       </Switch>
     </Theme>
   );

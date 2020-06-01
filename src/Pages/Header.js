@@ -76,7 +76,7 @@ function Header(props) {
   const handleLogin = () => {
     props.isAuthenticated.status
       ? props.authenticationRevoked()
-      : props.history.push('/login');
+      : props.history.push('/');
   };
 
   return (
