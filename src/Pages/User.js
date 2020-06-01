@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import con from '../images/Conectivite.png';
+import con from '../images/logoFinal.png';
 import logo from '../images/logo.jpg';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -42,58 +42,58 @@ import { Redirect } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import chart from '../images/statistics.png';
-import Header from './Header'
+import Header from './Header';
 
 const drawerWidth = 240;
 const styles = (theme) => ({
   root: {
     flexGrow: 1,
-    marginLeft: '-20px'
+    marginLeft: '-20px',
   },
   menuButton: {
     marginRight: theme.spacing(2),
-    marginTop: theme.spacing(1)
+    marginTop: theme.spacing(1),
   },
   flex: {
     flex: 1,
-    color: theme.palette.common.white
+    color: theme.palette.common.white,
   },
   toolbar: {
-    alignItems: 'flex-start'
+    alignItems: 'flex-start',
   },
   title: {
     flexGrow: 1,
-    alignSelf: 'flex-end'
+    alignSelf: 'flex-end',
   },
   icon: {
     lineHeight: '3.0',
     marginRight: theme.spacing(1),
-    marginTop: theme.spacing(2)
+    marginTop: theme.spacing(2),
   },
   toolbarDrawer: theme.mixins.toolbar,
   drawer: {
     width: drawerWidth,
-    flexShrink: 0
+    flexShrink: 0,
   },
   drawerPaper: {
     width: drawerWidth,
-    backgroundColor: 'pink'
+    backgroundColor: 'white',
   },
   selectMenu: {
     [theme.breakpoints.down('lg')]: {
-      marginTop: '3px'
+      marginTop: '3px',
     },
-    marginTop: '200px'
+    marginTop: '200px',
   },
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
-    marginLeft: '500px'
+    marginLeft: '500px',
   },
   formControl: {
     margin: theme.spacing(1),
     minWidth: 200,
-    flexGrow: 1
+    flexGrow: 1,
   },
   paper: {
     display: 'flex',
@@ -101,12 +101,12 @@ const styles = (theme) => ({
       margin: theme.spacing(1),
       marginTop: '80px',
       width: theme.spacing(16),
-      height: theme.spacing(16)
-    }
+      height: theme.spacing(16),
+    },
   },
   textFieldRight: {
-    marginTop: '80px'
-  }
+    marginTop: '80px',
+  },
 });
 
 class User extends Component {
@@ -121,14 +121,14 @@ class User extends Component {
       configurator: '',
       from: 'user',
       open: false,
-      isDrawerOpen: true
+      isDrawerOpen: true,
     };
 
     this.serviceProviders = {
       India: ['Airtel', 'Vodafone', 'BSNL', 'Idea', 'Jio'],
       US: ['Verizon', 'AT&T', 'Lycamobile', 'TMobile', 'Cricket'],
       AUS: ['Telstra'],
-      UK: ['BT']
+      UK: ['BT'],
     };
 
     this.handleChange = (event) => {
@@ -136,12 +136,12 @@ class User extends Component {
         this.setState({
           ...this.state,
           [event.target.name]: event.target.value,
-          serviceProviderList: this.serviceProviders[event.target.value]
+          serviceProviderList: this.serviceProviders[event.target.value],
         });
       } else {
         this.setState({
           ...this.state,
-          [event.target.name]: event.target.value
+          [event.target.name]: event.target.value,
         });
       }
     };
@@ -149,7 +149,7 @@ class User extends Component {
     this.handleRegister = (event) => {
       this.setState({
         ...this.state,
-        open: true
+        open: true,
       });
     };
 
@@ -162,7 +162,7 @@ class User extends Component {
         configurator: '',
         from: 'user',
         open: false,
-        isDrawerOpen: true
+        isDrawerOpen: true,
       });
     };
     this.notify = () => toast('You are logged in Successfully!');
@@ -186,35 +186,36 @@ class User extends Component {
         style={{ backgroundColor: 'white', height: '1000px' }}
       >
         <Header
-        isAuthenticated={this.props.isAuthenticated}
-        onClose={this.props.onClose}
-        history={this.props.history}
-        authenticationRevoked={this.props.authenticationRevoked}
-      />
+          isAuthenticated={this.props.isAuthenticated}
+          onClose={this.props.onClose}
+          history={this.props.history}
+          authenticationRevoked={this.props.authenticationRevoked}
+        />
         <Drawer
           className={classes.drawer}
           classes={{
-            paper: classes.drawerPaper
+            paper: classes.drawerPaper,
           }}
           variant="temporary"
           anchor="left"
           open={this.props.isDrawerOpen}
           onClose={this.onClose}
         >
-          <div
-            className={classes.toolbarDrawer}
-            style={{ backgroundColor: 'teal', opacity: 0.7 }}
-          >
-            <img src={con} alt="logo" style={{ height: '60px', width:'250px' }} />
+          <div className={classes.toolbarDrawer}>
+            <img
+              src={con}
+              alt="logo"
+              style={{ height: '60px', width: '160px' }}
+            />
           </div>
           <Divider />
-          <List style={{ backgroundColor: 'pink' }}>
+          <List style={{ backgroundColor: 'white' }}>
             {[
               'Dash Board',
               'Register a new user',
               'Manage Users',
               'Usage Statistics',
-              'Pay bills'
+              'Pay bills',
             ].map((text, index) => (
               <ListItem
                 button
@@ -222,7 +223,7 @@ class User extends Component {
                 onClick={() => {
                   this.setState({
                     menuOption: index,
-                    from: ''
+                    from: '',
                   });
                   this.props.onClose();
                 }}
@@ -239,7 +240,7 @@ class User extends Component {
               className={classes.root}
               style={{
                 marginTop: '80px',
-                marginLeft: '80px'
+                marginLeft: '80px',
               }}
             >
               <Grid container spacing={1} justify="center" alignItems="center">
@@ -251,7 +252,7 @@ class User extends Component {
                     <Select
                       inputProps={{
                         name: 'country',
-                        id: 'country'
+                        id: 'country',
                       }}
                       value={this.state.country}
                       onChange={this.handleChange}
@@ -282,7 +283,7 @@ class User extends Component {
                     <Select
                       inputProps={{
                         name: 'serviceProvider',
-                        id: 'serviceProvider'
+                        id: 'serviceProvider',
                       }}
                       value={this.state.serviceProvider}
                       onChange={this.handleChange}
@@ -306,7 +307,7 @@ class User extends Component {
                     <Select
                       inputProps={{
                         name: 'configurator',
-                        id: 'configurator'
+                        id: 'configurator',
                       }}
                       value={this.state.configurator}
                       onChange={this.handleChange}
@@ -351,7 +352,7 @@ class User extends Component {
             <div
               className={classes.root}
               style={{
-                backgroundColor: 'white'
+                backgroundColor: 'white',
               }}
             >
               <Grid container spacing={1}>
@@ -368,7 +369,7 @@ class User extends Component {
                         <InputAdornment position="start">
                           <Search />
                         </InputAdornment>
-                      )
+                      ),
                     }}
                   />
                 </Grid>
@@ -523,7 +524,7 @@ class User extends Component {
                 align="center"
                 color="white"
                 style={{
-                  marginTop: '-20px'
+                  marginTop: '-20px',
                 }}
               >
                 Are you ready to embrace the change for seamless Conectivité ?
@@ -537,7 +538,7 @@ class User extends Component {
               style={{
                 marginLeft: '-40px',
                 marginTop: '100px',
-                height: '300px'
+                height: '300px',
               }}
             />
           )}
@@ -566,7 +567,7 @@ const mapState = (state, props) => {
   return {
     isAuthenticated,
     isDrawerOpen,
-    serviceRequestNumber
+    serviceRequestNumber,
   };
 };
 
@@ -595,16 +596,16 @@ const mapDispatch = (dispatch) => {
           mobileNumber: number,
           email,
           subscriptionType: type,
-          reason
-        }
+          reason,
+        },
       });
     },
     sendOTP: (email) => {
       dispatch({
         type: reduxModule.screenSignIn.actions.SEND_OTP,
-        email
+        email,
       });
-    }
+    },
   };
 };
 

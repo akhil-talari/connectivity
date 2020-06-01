@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Box from '@material-ui/core/Box';
-import logo from '../images/logo.PNG';
+import logo from '../images/logoFinal.png';
 import con from '../images/Conectivite.png';
 import chart from '../images/statistics.png';
 import AppBar from '@material-ui/core/AppBar';
@@ -30,43 +30,43 @@ const drawerWidth = 240;
 
 const useStyles = (theme) => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   menuButton: {
     marginRight: theme.spacing(2),
-    marginTop: theme.spacing(1)
+    marginTop: theme.spacing(1),
   },
   flex: {
     flex: 1,
-    color: theme.palette.common.white
+    color: theme.palette.common.white,
   },
   toolbar: {
     //alignItems: 'flex-start'
   },
   title: {
     flexGrow: 1,
-    alignSelf: 'flex-end'
+    alignSelf: 'flex-end',
   },
   icon: {
     lineHeight: '3.0',
     marginRight: theme.spacing(1),
-    marginTop: theme.spacing(2)
+    marginTop: theme.spacing(2),
   },
   background: {
     //width: '100vw'
   },
   drawer: {
     width: drawerWidth,
-    flexShrink: 0
+    flexShrink: 0,
   },
   drawerPaper: {
     width: drawerWidth,
-    backgroundColor: 'pink'
+    backgroundColor: 'white',
   },
   toolbarDrawer: theme.mixins.toolbar,
   buttons: {
-    padding: 12
-  }
+    padding: 12,
+  },
 });
 
 function Header(props) {
@@ -81,7 +81,7 @@ function Header(props) {
 
   return (
     <div className="App">
-      <AppBar position="static" style={{ backgroundColor: '#f06292' }}>
+      <AppBar position="static" style={{ backgroundColor: 'steelblue' }}>
         <Toolbar className={classes.toolbar}>
           {props.isAuthenticated && props.isAuthenticated.status && (
             <IconButton
@@ -164,7 +164,7 @@ const mapState = (state, props) => {
   );
   return {
     isAuthenticated,
-    isDrawerOpen
+    isDrawerOpen,
   };
 };
 
@@ -175,9 +175,9 @@ const mapDispatch = (dispatch) => {
     },
     authenticationRevoked: (isAuthenticated) => {
       dispatch({
-        type: reduxModule.screenSignIn.actions.AUTHENTICATION_REVOKED
+        type: reduxModule.screenSignIn.actions.AUTHENTICATION_REVOKED,
       });
-    }
+    },
   };
 };
 

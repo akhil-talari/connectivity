@@ -1,29 +1,30 @@
 import React from 'react';
-
-import con from '../images/logoNew.png';
+import Search from '@material-ui/icons/Search';
+import con from '../images/logoFinal.png';
 import abhilash from '../images/avatar/Abhilash_New.png';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import MenuIcon from '@material-ui/icons/Menu';
-
+import TextField from '@material-ui/core/TextField';
 import InfoIcon from '@material-ui/icons/Info';
-
+import InputAdornment from '@material-ui/core/InputAdornment';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { withStyles } from '@material-ui/core/styles';
 import reduxModule from '../redux-modules';
 import Avatar from '@material-ui/core/Avatar';
 import ListItemText from '@material-ui/core/ListItemText';
-
+import MailOutlinedIcon from '@material-ui/icons/MailOutlined';
 import Grid from '@material-ui/core/Grid';
-
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import Button from '@material-ui/core/Button';
 import { push } from 'react-router-redux';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
+import Tooltip from '@material-ui/core/Tooltip';
 import Paper from '@material-ui/core/Paper';
 
 import FacebookIcon from '@material-ui/icons/Facebook';
@@ -47,8 +48,9 @@ const useStyles = (theme) => ({
   },
   menuButton: {
     marginRight: theme.spacing(2),
-    background: 'skyblue',
-    marginLeft: 5,
+    paddingLeft: 0,
+    paddingTop: 18,
+    marginLeft: -24,
     height: 90,
     width: 100,
     //marginTop: theme.spacing(1),
@@ -56,17 +58,21 @@ const useStyles = (theme) => ({
   appBar: {
     backgroundColor: 'white',
     width: '100%',
-
+    height: 90,
     top: 0,
   },
   Button: {
     margin: theme.spacing(1),
   },
+  menuPaper: {
+    maxWidth: 'calc(100vw)',
+  },
   paperParent: {
     '& >div:nth-child(3)': {
-      width: '-webkit-fill-available',
-      top: '100px !important',
+      top: '90px !important',
       background: 'skyblue',
+      width: 'calc(100vw)',
+      left: '0px !important',
     },
     '& >div:nth-child(3)>ul': {
       padding: 0,
@@ -110,6 +116,12 @@ const useStyles = (theme) => ({
 
     //justifyContent: 'flex-end',
   },
+  footer: {
+    backgroundColor: 'steelblue',
+    width: '100%',
+    height: 80,
+    opacity: 0.8,
+  },
   gridItem: {
     // border: 'solid',
     // borderColor: 'white',
@@ -126,15 +138,16 @@ const useStyles = (theme) => ({
   },
   paper: {
     '& >div:nth-child(3)': {
-      top: '148px !important',
+      top: '138px !important',
       width: '-webkit-fill-available',
       background: 'steelblue',
+      left: '0px !important',
     },
   },
   caption: {
     fontSize: '0.55rem',
     fontWeight: '800',
-    marginTop: '-50px',
+    marginTop: '-46px',
     marginLeft: '80px',
     fontStyle: 'italic',
   },
@@ -157,6 +170,18 @@ const useStyles = (theme) => ({
   },
   divider: {
     backgroundColor: 'skyblue',
+  },
+  searchLabel: {
+    textAlign: 'center',
+  },
+  login: {
+    color: 'black',
+    marginLeft: 20,
+    marginTop: 12,
+  },
+  textStyles: {
+    color: 'steelblue',
+    fontWeight: 800,
   },
 });
 
@@ -196,6 +221,12 @@ const StyledMenuItem = withStyles((theme) => ({
 
 function HomeNew(props) {
   //const classes = useStyles();
+
+  const handleLogin = () => {
+    props.isAuthenticated.status
+      ? props.authenticationRevoked()
+      : props.history.push('/login');
+  };
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [aboutEl, setAboutEl] = React.useState(null);
@@ -248,12 +279,23 @@ function HomeNew(props) {
   };
   const { classes } = props;
 
+  const buildFeedbackLink = () => {
+    const to = 'abhi@conectivite.com';
+    const subject = 'Thanks for taking the time to contact us';
+
+    const body = [''];
+
+    return `mailto:${to}?subject=${encodeURIComponent(
+      subject
+    )}&body=${encodeURIComponent(body.join('\n\n'))}`;
+  };
+
   return (
     <div className="App">
-      <AppBar position="fixed" className={classes.appBar}>
+      <AppBar position="fixed" className={classes.appBar} elevation={0}>
         <Toolbar className={classes.toolbar}>
           <Grid container>
-            <Grid item lg={2}>
+            <Grid item lg={2} style={{ marginLeft: -36 }}>
               <img
                 src={con}
                 alt="logo"
@@ -269,7 +311,7 @@ function HomeNew(props) {
                 component="div"
                 className={classes.caption}
               >
-                For Connected World
+                For a Connected World
               </Typography>
             </Grid>
             <Grid item lg={4} style={{}}>
@@ -278,13 +320,12 @@ function HomeNew(props) {
                 className={classes.menuButton}
                 style={{
                   justify: 'flex-start',
-                  background: 'skyblue',
                 }}
                 color="inherit"
                 aria-label="open drawer"
                 onClick={handleClick}
               >
-                <MenuIcon style={{ color: 'white', fontSize: 40 }} />
+                <MenuIcon style={{ color: 'skyblue', fontSize: 40 }} />
               </IconButton>
             </Grid>
             <Grid
@@ -297,48 +338,66 @@ function HomeNew(props) {
               <Paper
                 elevation={0}
                 style={{
-                  background: 'skyblue',
                   height: 50,
                   width: 300,
                   float: 'right',
                 }}
               >
-                <Typography
-                  variant="body1"
-                  align="center"
-                  style={{
-                    fontFamily: 'calibri',
-                    fontSize: 18,
-                    color: 'white',
-                  }}
-                >
-                  Connected Living
-                </Typography>
-                <Typography
-                  variant="body1"
-                  align="center"
-                  style={{
-                    fontFamily: 'calibri',
-                    fontSize: 18,
-                    color: 'white',
-                  }}
-                >
-                  Connected World
-                </Typography>
-                <Grid container style={{ textAlign: 'center' }} spacing={1}>
-                  <Grid item lg={2}>
+                <Grid container>
+                  <Grid item lg={6}>
+                    <TextField
+                      id="search"
+                      placeholder="Quick Search"
+                      type="search"
+                      className={classes.textField}
+                      classes={{ label: classes.searchLabel }}
+                      margin="normal"
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment position="start">
+                            <Search />
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+                  </Grid>
+                  <Grid
+                    item
+                    lg={6}
+                    style={{ alignSelf: 'center', textAlign: 'start' }}
+                  >
+                    <Tooltip
+                      id="tooltip-new-batch"
+                      title={
+                        props.isAuthenticated && props.isAuthenticated.status
+                          ? 'LOGOUT'
+                          : 'LOGIN'
+                      }
+                    >
+                      <AccountCircleIcon
+                        style={{ color: 'skyblue', fontSize: 30 }}
+                        className={classes.login}
+                        onClick={handleLogin}
+                      />
+                    </Tooltip>
+                  </Grid>
+                </Grid>
+                <Grid container style={{ textAlign: 'center' }}>
+                  <Grid item lg={1} style={{ marginLeft: -22 }}>
                     <Button
                       component="a"
                       color="inherit"
                       aria-label="Facebook"
+                      style={{ color: 'steelblue' }}
                       className={classes.Button}
                       startIcon={<FacebookIcon />}
                       target="_blank"
                       href=""
                     />
                   </Grid>
-                  <Grid item lg={2}>
+                  <Grid item lg={1} style={{ marginLeft: 12 }}>
                     <Button
+                      style={{ color: 'steelblue' }}
                       component="a"
                       color="inherit"
                       aria-label="Twitter"
@@ -348,8 +407,9 @@ function HomeNew(props) {
                       href="https://twitter.com/home"
                     />
                   </Grid>
-                  <Grid item lg={2}>
+                  <Grid item lg={1} style={{ marginLeft: 12 }}>
                     <Button
+                      style={{ color: 'steelblue' }}
                       component="a"
                       color="inherit"
                       aria-label="Linkedin"
@@ -359,8 +419,9 @@ function HomeNew(props) {
                       href="https://www.linkedin.com/company/conectivit%C3%A9/?viewAsMember=true"
                     />
                   </Grid>
-                  <Grid item lg={2}>
+                  <Grid item lg={1} style={{ marginLeft: 12 }}>
                     <Button
+                      style={{ color: 'red' }}
                       component="a"
                       color="inherit"
                       aria-label="Youtube"
@@ -370,8 +431,9 @@ function HomeNew(props) {
                       href=""
                     />
                   </Grid>
-                  <Grid item lg={2}>
+                  <Grid item lg={1} style={{ marginLeft: 12 }}>
                     <Button
+                      style={{ color: 'lightcoral' }}
                       component="a"
                       color="inherit"
                       aria-label="Instagram"
@@ -379,6 +441,17 @@ function HomeNew(props) {
                       startIcon={<InstagramIcon />}
                       target="_blank"
                       href=""
+                    />
+                  </Grid>
+                  <Grid item lg={1} style={{ marginLeft: 12 }}>
+                    <Button
+                      style={{ color: 'coral' }}
+                      component="a"
+                      color="inherit"
+                      aria-label="Email"
+                      className={classes.Button}
+                      startIcon={<MailOutlinedIcon />}
+                      href={buildFeedbackLink()}
                     />
                   </Grid>
                 </Grid>
@@ -392,6 +465,7 @@ function HomeNew(props) {
             keepMounted
             open={Boolean(anchorEl)}
             className={classes.paperParent}
+            classes={{ paper: classes.menuPaper }}
             onClose={handleClose}
           >
             <Grid container style={{ flexWrap: 'noWrap', height: 48 }}>
@@ -410,6 +484,7 @@ function HomeNew(props) {
                   open={Boolean(aboutEl)}
                   onClose={closeAboutUs}
                   className={classes.paper}
+                  classes={{ paper: classes.menuPaper }}
                 >
                   <Grid container style={{ height: 48 }}>
                     <Grid item lg={2} className={classes.gridItem}>
@@ -424,6 +499,14 @@ function HomeNew(props) {
                       <StyledMenuItem className={classes.menuItemSelected}>
                         <ListItemText
                           primary="Inspired by future"
+                          style={{ color: 'white' }}
+                        />
+                      </StyledMenuItem>
+                    </Grid>
+                    <Grid item lg={2} className={classes.gridItem}>
+                      <StyledMenuItem className={classes.menuItemSelected}>
+                        <ListItemText
+                          primary="Team"
                           style={{ color: 'white' }}
                         />
                       </StyledMenuItem>
@@ -452,6 +535,7 @@ function HomeNew(props) {
                   open={Boolean(solutionEl)}
                   onClose={closeSolutions}
                   className={classes.paper}
+                  classes={{ paper: classes.menuPaper }}
                 >
                   <Grid container style={{ height: 48 }}>
                     <Grid item lg={2} className={classes.gridItem}>
@@ -470,14 +554,7 @@ function HomeNew(props) {
                         />
                       </StyledMenuItem>
                     </Grid>
-                    <Grid item lg={2} className={classes.gridItem}>
-                      <StyledMenuItem className={classes.menuItemSelected}>
-                        <ListItemText
-                          primary="MDM"
-                          style={{ color: 'white' }}
-                        />
-                      </StyledMenuItem>
-                    </Grid>
+
                     <Grid item lg={1} className={classes.gridItem}>
                       <StyledMenuItem className={classes.menuItemSelected}>
                         <ListItemText
@@ -533,6 +610,7 @@ function HomeNew(props) {
                   open={Boolean(partnerEl)}
                   onClose={closePartner}
                   className={classes.paper}
+                  classes={{ paper: classes.menuPaper }}
                 >
                   <Grid container style={{ height: 48 }}>
                     <Grid item lg={2} className={classes.gridItem}>
@@ -606,6 +684,7 @@ function HomeNew(props) {
                   open={Boolean(contactEl)}
                   onClose={closeContact}
                   className={classes.paper}
+                  classes={{ paper: classes.menuPaper }}
                 >
                   <Grid container style={{ height: 48 }}>
                     <Grid item lg={2} className={classes.gridItem}>
@@ -654,29 +733,28 @@ function HomeNew(props) {
         >
           <Typography
             variant="h6"
-            display="inline"
-            style={{ color: 'skyblue', marginTop: 12, marginLeft: 8 }}
+            style={{ color: 'steelblue', textAlign: 'left', marginLeft: 12 }}
           >
             Conectivite for World
           </Typography>
 
           <Typography
-            display="inline"
             style={{
               fontSize: '1.0rem',
               textAlign: 'justify',
-              marginTop: 12,
+              marginTop: 8,
               marginLeft: 12,
             }}
           >
-            "In a forever changing world where the fundamentals of business and
+            In a forever changing world where the fundamentals of business and
             lifestyle are continuously redefined as we move towards Autonomous,
-            self-service and a connected world where we all need a safe, secure
-            and a reliable self-service platform to Provision and enable any
-            network on any device at any given point of time straight out of the
-            box. At Conectivite we adhere and comply to norms and regulations of
-            the local law of the land our telecom partners operate in, using our
-            sophisticated algorithms."
+            self-service and a contact-less yet connected world, we all need a
+            safe, secure and a reliable platform to provision and enable any
+            network at any given point of time. We at Conectivite constantly
+            strive to deliver the connectivity needs of individuals and
+            businesses in most sophisticated ways adhering and complying to
+            strict privacy policies and regulations using our sophisticated
+            algorithms.
           </Typography>
         </Grid>
         <Grid
@@ -697,12 +775,12 @@ function HomeNew(props) {
             textAlign: 'center',
             padding: '18px',
             color: 'white',
+            paddingLeft: 0,
           }}
         >
           <Typography
             variant="h6"
-            style={{ color: 'skyblue' }}
-            display="inline"
+            style={{ color: 'steelblue', textAlign: 'left', marginLeft: -10 }}
           >
             GCCP by Connectivite - One Global Platform
           </Typography>
@@ -711,22 +789,72 @@ function HomeNew(props) {
             style={{
               fontSize: '1.0rem',
               textAlign: 'justify',
-              marginTop: 12,
-              marginLeft: 12,
+              marginTop: 8,
+              marginLeft: -10,
             }}
-            display="inline"
           >
-            "GCCP*patent pending (Global Converged Conectivite Platform)
-            provides a seamless, always ON global interface that completes and
-            compliments the valuable partners in Communication Eco System
-            enabling subscribers and businesses to provision any Carrier on
-            demand OTA (over the air) along with manageability of network
-            profiles with ease for eSIM enabled cell phones, Connected cars, IoT
-            devices, Flying mobility, M2M, Tablets, Laptops etc. straight out of
-            the box. "
+            GCCP<sup style={{ color: 'red' }}>*patent pending</sup> (Global
+            Converged Conectivite Platform) is always a{' '}
+            <b className={classes.textStyles}>“ON”</b> global interface that{' '}
+            <b className={classes.textStyles}>connects, completes</b> and{' '}
+            <b className={classes.textStyles}>compliments</b> the valuable
+            partners in
+            <b className={classes.textStyles}> Communication Eco System</b>{' '}
+            enabling <b className={classes.textStyles}>subscribers</b> and{' '}
+            <b className={classes.textStyles}>businesses</b> to provision any
+            carrier <b className={classes.textStyles}>on demand OTA</b> (over
+            the air) along with manageability of network profiles seamlessly for
+            all the eSIM enabled applications/ use cases.
           </Typography>
         </Grid>
       </Grid>
+      <AppBar
+        position="static"
+        className={classes.footer}
+        elevation={0}
+        style={{ marginTop: 10 }}
+      >
+        <Grid container style={{ height: 'inherit', textAlign: 'center' }}>
+          <Grid
+            item
+            lg={6}
+            style={{ textAlign: 'center', alignSelf: 'center' }}
+          >
+            <Button
+              component="a"
+              color="inherit"
+              aria-label="legalmentions"
+              style={{ color: 'white', verticalAlign: 'text-top' }}
+              className={classes.Button}
+              target="_self"
+            >
+              LEGAL MENTIONS
+            </Button>
+
+            <Button
+              component="a"
+              color="inherit"
+              aria-label="sitemap"
+              style={{ color: 'white', verticalAlign: 'text-top' }}
+              className={classes.Button}
+              target="_self"
+            >
+              SITE MAP
+            </Button>
+
+            <Button
+              component="a"
+              color="inherit"
+              aria-label="Conectivite.com"
+              style={{ color: 'white', verticalAlign: 'text-top' }}
+              className={classes.Button}
+              target="_self"
+            >
+              conectivite.com
+            </Button>
+          </Grid>
+        </Grid>
+      </AppBar>
     </div>
   );
 }

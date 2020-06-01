@@ -14,8 +14,8 @@ const slides = [Image1, Image2, Image3, Image4];
 
 const styles = (theme) => ({
   body: {
-    height: 'calc(100vh - 245px)',
-    marginTop: '105px',
+    height: 'calc(100vh - 165px)',
+    marginTop: '90px',
     width: 'calc(100vw)',
     position: 'relative',
     margin: '0 auto',
