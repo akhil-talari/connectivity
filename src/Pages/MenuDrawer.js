@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import con from '../images/Conectivite.png';
+import con from '../images/logoFinal.png';
 import logo from '../images/logo.jpg';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -44,53 +44,53 @@ const drawerWidth = 240;
 const styles = (theme) => ({
   root: {
     flexGrow: 1,
-    marginLeft: '-20px'
+    marginLeft: '-20px',
   },
   menuButton: {
     marginRight: theme.spacing(2),
-    marginTop: theme.spacing(1)
+    marginTop: theme.spacing(1),
   },
   flex: {
     flex: 1,
-    color: theme.palette.common.white
+    color: theme.palette.common.white,
   },
   toolbar: {
-    alignItems: 'flex-start'
+    alignItems: 'flex-start',
   },
   title: {
     flexGrow: 1,
-    alignSelf: 'flex-end'
+    alignSelf: 'flex-end',
   },
   icon: {
     lineHeight: '3.0',
     marginRight: theme.spacing(1),
-    marginTop: theme.spacing(2)
+    marginTop: theme.spacing(2),
   },
   toolbarDrawer: theme.mixins.toolbar,
   drawer: {
     width: drawerWidth,
-    flexShrink: 0
+    flexShrink: 0,
   },
   drawerPaper: {
     width: drawerWidth,
-    backgroundColor: 'pink'
+    backgroundColor: 'white',
   },
   selectMenu: {
     [theme.breakpoints.down('lg')]: {
-      marginTop: '3px'
+      marginTop: '3px',
     },
-    marginTop: '200px'
+    marginTop: '200px',
   },
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
-    marginLeft: '500px'
+    marginLeft: '500px',
   },
   formControl: {
     margin: theme.spacing(1),
     minWidth: 200,
 
-    flexGrow: 1
+    flexGrow: 1,
   },
   paper: {
     display: 'flex',
@@ -98,12 +98,12 @@ const styles = (theme) => ({
       margin: theme.spacing(1),
       marginTop: '80px',
       width: theme.spacing(16),
-      height: theme.spacing(16)
-    }
+      height: theme.spacing(16),
+    },
   },
   textFieldRight: {
-    marginTop: '80px'
-  }
+    marginTop: '80px',
+  },
 });
 
 class Menu extends Component {
@@ -117,14 +117,14 @@ class Menu extends Component {
       serviceProvider: '',
       configurator: '',
       from: 'user',
-      open: false
+      open: false,
     };
 
     this.serviceProviders = {
       0: ['Airtel', 'Vodafone', 'BSNL', 'Idea', 'Jio'],
       1: ['Verizon', 'AT&T', 'Lycamobile', 'TMobile', 'Cricket'],
       2: ['Telstra'],
-      3: ['BT']
+      3: ['BT'],
     };
 
     this.handleChange = (event) => {
@@ -132,12 +132,12 @@ class Menu extends Component {
         this.setState({
           ...this.state,
           [event.target.name]: event.target.value,
-          serviceProviderList: this.serviceProviders[event.target.value]
+          serviceProviderList: this.serviceProviders[event.target.value],
         });
       } else {
         this.setState({
           ...this.state,
-          [event.target.name]: event.target.value
+          [event.target.name]: event.target.value,
         });
       }
     };
@@ -145,14 +145,14 @@ class Menu extends Component {
     this.handleRegister = (event) => {
       this.setState({
         ...this.state,
-        open: true
+        open: true,
       });
     };
 
     this.handleClose = (event) => {
       this.setState({
         ...this.state,
-        open: false
+        open: false,
       });
     };
   }
@@ -163,7 +163,7 @@ class Menu extends Component {
         <Drawer
           className={classes.drawer}
           classes={{
-            paper: classes.drawerPaper
+            paper: classes.drawerPaper,
           }}
           anchor="left"
           open={this.props.isOpen}
@@ -175,13 +175,13 @@ class Menu extends Component {
             <img src={con} alt="logo" style={{ height: '60px' }} />
           </div>
           <Divider />
-          <List style={{ backgroundColor: 'pink' }}>
+          <List style={{ backgroundColor: 'white' }}>
             {[
               'Dash Board',
               'Register a new user',
               'Manage Users',
               'Usage Statistics',
-              'Pay bills'
+              'Pay bills',
             ].map((text, index) => (
               <ListItem
                 button
@@ -207,7 +207,7 @@ const mapState = (state, props) => {
     props
   );
   return {
-    isAuthenticated
+    isAuthenticated,
   };
 };
 
