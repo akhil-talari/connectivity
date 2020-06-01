@@ -103,7 +103,7 @@ function Header(props) {
           <IconButton
             size="small"
             color="inherit"
-            onClick={() => props.history.push('/home')}
+            onClick={() => props.history.push('/')}
             className={classes.buttons}
           >
             HOME
