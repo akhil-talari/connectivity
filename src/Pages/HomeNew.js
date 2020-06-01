@@ -752,7 +752,7 @@ function HomeNew(props) {
             safe, secure and a reliable platform to provision and enable any
             network at any given point of time. We at Conectivite constantly
             strive to deliver the connectivity needs of individuals and
-            businesses in most sophisticated ways adhering and complying to
+            businesses in most sought after ways adhering and complying to
             strict privacy policies and regulations using our sophisticated
             algorithms.
           </Typography>
