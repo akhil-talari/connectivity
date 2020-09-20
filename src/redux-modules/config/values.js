@@ -5,7 +5,7 @@ export const getServiceRequestNumber =
   'http://ec2-52-206-53-178.compute-1.amazonaws.com:8080/api/user';
 
 export const createUserURI =
-  'http://ec2-52-206-53-178.compute-1.amazonaws.com:8080/api/user/create_user_form';
+  'https://www.conectivite.com/api/user/create_user_form';
 
 export const sendOTPURI =
   'http://ec2-52-206-53-178.compute-1.amazonaws.com:8080/api/user/emailauthentication';
